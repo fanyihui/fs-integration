@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/branding/branding.iml" filepath="$PROJECT_DIR$/branding/branding.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/components.iml" filepath="$PROJECT_DIR$/components/components.iml" />
+      <module fileurl="file://$PROJECT_DIR$/distribution/distribution.iml" filepath="$PROJECT_DIR$/distribution/distribution.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fsie.iml" filepath="$PROJECT_DIR$/fsie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/components/medcaptain/medcaptain.iml" filepath="$PROJECT_DIR$/components/medcaptain/medcaptain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/processors/medcaptaintohl7/medcaptaintohl7.iml" filepath="$PROJECT_DIR$/processors/medcaptaintohl7/medcaptaintohl7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/processors/processors.iml" filepath="$PROJECT_DIR$/processors/processors.iml" />
+      <module fileurl="file://$PROJECT_DIR$/samples/samples.iml" filepath="$PROJECT_DIR$/samples/samples.iml" />
+    </modules>
+  </component>
+</project>
