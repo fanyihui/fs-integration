@@ -6,9 +6,6 @@
         <additionalProperties>
           <property key="Bundle-Description" value="FSIE MedCaptain Component" />
           <property key="Import-Package" value="*" />
-          <property key="Private-Package" value="!*" />
-          <property key="Export-Package" value="com.fs.ie.components.medcaptain" />
-          <property key="Spring-Context" value="*;public-context:=false" />
           <property key="Bundle-Name" value="fsie :: MedCaptain" />
           <property key="Include-Resource" value="conf/hl7server.properties=$MODULE_DIR$/src/main/resources/conf/hl7server.properties,conf/resource.properties=$MODULE_DIR$/src/main/resources/conf/resource.properties,log4j.properties=$MODULE_DIR$/src/main/resources/log4j.properties" />
         </additionalProperties>
@@ -27,22 +24,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.apache.camel:camel-core:2.19.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-core:2.19.3" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.22" level="project" />
     <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-core:2.2.11" level="project" />
     <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.11" level="project" />
     <orderEntry type="library" name="Maven: org.apache.mina:mina-core:2.0.16" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.camel:camel-netty4:2.19.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-netty4:2.19.3" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-all:4.1.9.Final" level="project" />
     <orderEntry type="library" name="Maven: commons-pool:commons-pool:1.6" level="project" />
     <orderEntry type="library" name="Maven: ca.uhn.hapi:hapi-base:2.2" level="project" />
     <orderEntry type="library" name="Maven: ca.uhn.hapi:hapi-structures-v24:2.2" level="project" />
     <orderEntry type="library" name="Maven: ca.uhn.hapi:hapi-structures-v23:2.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apache.logging.log4j:log4j-api:2.8.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apache.logging.log4j:log4j-core:2.8.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apache.logging.log4j:log4j-slf4j-impl:2.8.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apache.camel:camel-test:2.19.4" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
   </component>
 </module>

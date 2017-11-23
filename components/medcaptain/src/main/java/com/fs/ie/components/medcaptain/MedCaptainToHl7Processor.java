@@ -30,7 +30,7 @@ public class MedCaptainToHl7Processor implements Processor {
 		message.initQuickstart("ORU", "R01", "P");
 		
 		MSH msh = message.getMSH();
-		msh.getSendingApplication().getNamespaceID().setValue("FSHealthIP");
+		msh.getSendingApplication().getNamespaceID().setValue("fsie");
 		msh.getSequenceNumber().setValue("123");
 		
 		PID pid = message.getPATIENT_RESULT().getPATIENT().getPID();

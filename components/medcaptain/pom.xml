@@ -16,20 +16,20 @@
     <description>FSIE MedCaptain Component</description>
 
 
-    <properties>
+    <!--properties>
         <camel.osgi.export.pkg>com.fs.ie.components.medcaptain.*</camel.osgi.export.pkg>
         <camel.osgi.import.before.defaults>
             org.apache.mina.*;version="[2,3)"
         </camel.osgi.import.before.defaults>
-        <!--camel.osgi.export.service>
+        <!-camel.osgi.export.service>
           org.apache.camel.spi.DataFormatResolver;dataformat=medcaptain
         </camel.osgi.export.service-->
-    </properties>
+    <!--/properties-->
 
-    <dependencyManagement>
+    <!--dependencyManagement>
         <dependencies>
-            <!-- Camel BOM -->
-            <dependency>
+            <!- Camel BOM -->
+            <!--dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-parent</artifactId>
                 <version>${camel-version}</version>
@@ -37,7 +37,7 @@
                 <type>pom</type>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+    </dependencyManagement-->
 
     <dependencies>
         <dependency>
@@ -49,12 +49,14 @@
         <dependency>
             <groupId>org.apache.mina</groupId>
             <artifactId>mina-core</artifactId>
+            <version>2.0.16</version>
             <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-netty4</artifactId>
+            <version>${camel-version}</version>
             <optional>true</optional>
         </dependency>
 
@@ -75,34 +77,10 @@
             <artifactId>hapi-structures-v23</artifactId>
             <version>${hapi-version}</version>
         </dependency>
-
-        <!-- logging -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- testing -->
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
-        <defaultGoal>install</defaultGoal>
+        <!--defaultGoal>install</defaultGoal-->
 
         <plugins>
 
@@ -116,37 +94,6 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-
-            <!-- generate components meta-data and validate component includes documentation etc -->
-            <plugin>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-package-maven-plugin</artifactId>
-                <version>${camel-version}</version>
-                <executions>
-                    <execution>
-                        <id>prepare</id>
-                        <goals>
-                            <goal>prepare-components</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                    </execution>
-                    <execution>
-                        <id>validate</id>
-                        <goals>
-                            <goal>validate-components</goal>
-                        </goals>
-                        <phase>prepare-package</phase>
-                    </execution>
-                </executions>
-            </plugin>
 
             <!-- to generate the MANIFEST-FILE of the bundle -->
             <plugin>
@@ -158,11 +105,6 @@
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Import-Package>*</Import-Package>
-                        <Private-Package>!*</Private-Package>
-                        <Export-Package>
-                            com.fs.ie.components.medcaptain
-                        </Export-Package>
-                        <Spring-Context>*;public-context:=false</Spring-Context>
                     </instructions>
                 </configuration>
             </plugin>

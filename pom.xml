@@ -7,10 +7,10 @@
     <groupId>com.fs.ie</groupId>
     <artifactId>fsie</artifactId>
     <packaging>pom</packaging>
-    <version>!--</version>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <camel-version>2.19.4</camel-version>
+        <camel-version>2.19.3</camel-version>
         <hawtio-version>1.5.5</hawtio-version>
         <karaf-version>4.1.2</karaf-version>
         <hapi-version>2.2</hapi-version>

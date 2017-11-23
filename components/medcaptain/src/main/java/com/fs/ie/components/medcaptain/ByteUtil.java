@@ -27,7 +27,11 @@ public class ByteUtil {
 		
 		return value;
 	}
-	
+
+	public static long getUint32(long l){
+		return l & 0x00000000ffffffff;
+	}
+
 	@Deprecated
 	public static String byteToBit(byte b) {
 		return "" + (byte) ((b >> 7) & 0x1) + (byte) ((b >> 6) & 0x1) + (byte) ((b >> 5) & 0x1) + (byte) ((b >> 4) & 0x1) + (byte) ((b >> 3) & 0x1)
@@ -45,14 +49,39 @@ public class ByteUtil {
 		
 		return bitset;
 	}
-	
+
+	public static byte[] hexStringToBytes(String hexString) {
+		if (hexString == null || hexString.equals("")) {
+			return null;
+		}
+		hexString = hexString.toUpperCase();
+		int length = hexString.length() / 2;
+		char[] hexChars = hexString.toCharArray();
+		byte[] d = new byte[length];
+		for (int i = 0; i < length; i++) {
+			int pos = i * 2;
+			d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));
+		}
+		return d;
+	}
+
+
 	public static short getShort(byte... src) {
 		ByteBuffer bb = ByteBuffer.allocate(2);
 		bb.put(src);
 		bb.order(ByteOrder.nativeOrder());
 		return bb.getShort(0);
 	}
-	
+
+	public static byte[] shortToByteArray(short s) {
+		byte[] targets = new byte[2];
+		for (int i = 0; i < 2; i++) {
+			int offset = (targets.length - 1 - i) * 8;
+			targets[i] = (byte) ((s >>> offset) & 0xff);
+		}
+		return targets;
+	}
+
 	public static int getInt(byte... src) {
 		return getInt(ByteOrder.nativeOrder(), src);
 	}
@@ -130,5 +159,46 @@ public class ByteUtil {
 		sb.replace(sb.length() - vs.length(), sb.length(), vs);
 		return sb.toString();
 	}
-	
+
+	private static byte charToByte(char c) {
+		return (byte) "0123456789ABCDEF".indexOf(c);
+	}
+
+	public static byte[] float2byte(float f) {
+
+		// 把float转换为byte[]
+		int fbit = Float.floatToIntBits(f);
+
+		byte[] b = new byte[4];
+		for (int i = 0; i < 4; i++) {
+			b[i] = (byte) (fbit >> (24 - i * 8));
+		}
+
+		// 翻转数组
+		int len = b.length;
+		// 建立一个与源数组元素类型相同的数组
+		byte[] dest = new byte[len];
+		// 为了防止修改源数组，将源数组拷贝一份副本
+		System.arraycopy(b, 0, dest, 0, len);
+		byte temp;
+		// 将顺位第i个与倒数第i个交换
+		for (int i = 0; i < len / 2; ++i) {
+			temp = dest[i];
+			dest[i] = dest[len - i - 1];
+			dest[len - i - 1] = temp;
+		}
+
+		return dest;
+
+	}
+
+	public static byte[] getBytes(int data)
+	{
+		byte[] bytes = new byte[4];
+		bytes[0] = (byte) (data & 0xff);
+		bytes[1] = (byte) ((data & 0xff00) >> 8);
+		bytes[2] = (byte) ((data & 0xff0000) >> 16);
+		bytes[3] = (byte) ((data & 0xff000000) >> 24);
+		return bytes;
+	}
 }
