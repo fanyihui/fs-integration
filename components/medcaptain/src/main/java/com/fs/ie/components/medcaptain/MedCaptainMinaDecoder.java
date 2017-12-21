@@ -199,30 +199,17 @@ public class MedCaptainMinaDecoder extends CumulativeProtocolDecoder {
 		logger.info(getSubDump(dump, 153, 4));
 		logger.info("RemainAmount:" + ByteUtil.getFloat(buf, 153, 4));
 
-		mar.setWarning(getWarning(ByteUtil.getInt(buf, 157, 4)));
+		mar.setWarning(MedCaptainMessageHandler.getWarning(ByteUtil.getInt(buf, 157, 4)));
 		logger.info(getSubDump(dump, 157, 4));
 		logger.info("Warning:" + ByteUtil.getInt(buf, 157, 4));
 		logger.info("Warning:" + ByteUtil.getBitString(ByteUtil.getInt(buf, 157, 4)));
-		logger.info("Warning:" + getWarning(ByteUtil.getInt(buf, 157, 4)));
+		logger.info("Warning:" + MedCaptainMessageHandler.getWarning(ByteUtil.getInt(buf, 157, 4)));
 
 		medCaptainMessage.setDevice(device);
 		medCaptainMessage.setPatient(patient);
 		medCaptainMessage.setMar(mar);
 
 		//return medCaptainMessage;
-	}
-	
-	private ArrayList<String> getWarning(int warns) {
-		ArrayList<String> warnings = new ArrayList<>();
-		long warn = 0x1L;
-		long mark = 0xFFFFFFFFL & warns;
-		for (int i = 0; i < 32; i++) {
-			long w = warn << i;
-			if ((w & mark) == w) {
-				warnings.add(ResourceUtil.getProperty("warning", i));
-			}
-		}
-		return warnings;
 	}
 	
 }

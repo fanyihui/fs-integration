@@ -9,25 +9,31 @@ import java.net.SocketException;
 
 public class UdpClient {
 	public static void main(String args[]){
+		UdpClient udpClient = new UdpClient();
+		udpClient.sendPatientInfo();
+		//udpClient.sendData();
+	}
+
+	public void sendData(){
 		byte[] buf = new byte[256];
 		DatagramSocket socket = null;
 		try{
 			socket = new DatagramSocket();
-			
+
 		} catch (SocketException se){
 			se.printStackTrace();
 		}
-		
+
 		InetAddress address = InetAddress.getLoopbackAddress();
 		System.out.println(address);
-		
+
 		buf[0] = ByteUtil.hexStringToBytes("FA")[0];
 		//byte[] code = ByteUtil.hexStringToBytes("0360");
 		buf[1] = 0x60;
 		buf[2] = 0x03;
 		byte[] size = ByteUtil.shortToByteArray((short) 150);
-		buf[3] = size[0];
-		buf[4] = size[1];
+		buf[3] = size[1];
+		buf[4] = size[0];
 		buf[5] = 0;
 		buf[6] = 0;
 		buf[7] = 0;
@@ -130,6 +136,100 @@ public class UdpClient {
 		byte[] warning = ByteUtil.getBytes(warn0);
 		for (int i=0;i<warning.length;i++){
 			buf[157+i] = warning[i];
+		}
+
+		DatagramPacket packet = new DatagramPacket(buf,  buf.length, address, 26800);
+		try{
+			socket.send(packet);
+			socket.close();
+			System.out.println(buf);
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+	}
+
+	public void sendPatientInfo(){
+		byte[] buf = new byte[256];
+		DatagramSocket socket = null;
+		try{
+			socket = new DatagramSocket();
+
+		} catch (SocketException se){
+			se.printStackTrace();
+		}
+
+		InetAddress address = InetAddress.getLoopbackAddress();
+		System.out.println(address);
+
+		buf[0] = ByteUtil.hexStringToBytes("FA")[0];
+		//byte[] code = ByteUtil.hexStringToBytes("0360");
+		buf[1] = 0x07;
+		buf[2] = 0x03;
+		byte[] size = ByteUtil.shortToByteArray((short) 225);
+		buf[3] = size[1];
+		buf[4] = size[0];
+		buf[5] = 0;
+		buf[6] = 0;
+		buf[7] = 0;
+		buf[8] = 0;
+		buf[9] = 0;
+		buf[10] = 5;
+
+		byte[] sn = "pid0000000000000001".getBytes();
+		for (int i=0;i<sn.length;i++){
+			buf[11+i] = sn[i];
+		}
+
+		try {
+			byte[] name = "无名氏".getBytes("UTF-8");
+			for (int i=0;i<name.length;i++){
+				buf[30+i] = name[i];
+			}
+		} catch (UnsupportedEncodingException uee){
+			System.out.println(uee.getMessage());
+		}
+
+		buf[49] = "M".getBytes()[0];
+
+		buf[50] = ByteUtil.shortToByteArray((short) 5)[0];
+
+		byte[] hight = ByteUtil.float2byte(175);
+		for (int i=0;i<hight.length;i++){
+			buf[51+i] = hight[i];
+		}
+
+		byte[] weight = ByteUtil.float2byte(75);
+		for (int i=0;i<weight.length;i++){
+			buf[55+i] = weight[i];
+		}
+
+		buf[59] = 0x03;
+
+		//department
+		byte[] department = "dpt0000000000000001".getBytes();
+		for (int i=0;i<department.length;i++){
+			buf[60+i] = department[i];
+		}
+
+		//room
+		byte[] room = "room0000001".getBytes();
+		for (int i=0;i<room.length;i++){
+			buf[79+i] = room[i];
+		}
+
+		//bed
+		byte[] bed = "bed00001".getBytes();
+		for (int i=0;i<bed.length;i++){
+			buf[90+i] = bed[i];
+		}
+
+		try {
+			byte[] order = "阿莫西林速溶片".getBytes("UTF-8");
+			for (int i=0;i<order.length;i++){
+				buf[97+i] = order[i];
+			}
+		} catch (UnsupportedEncodingException uee){
+			System.out.println(uee.getMessage());
 		}
 
 		DatagramPacket packet = new DatagramPacket(buf,  buf.length, address, 26800);

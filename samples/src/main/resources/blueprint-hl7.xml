@@ -1,0 +1,25 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+ 	<bean id="hl7decoder" class="org.apache.camel.component.hl7.HL7MLLPNettyDecoderFactory"/>
+ 	<bean id="hl7encoder" class="org.apache.camel.component.hl7.HL7MLLPNettyEncoderFactory"/>
+    <bean id="medcaptaindecoder" class="com.fs.ie.components.medcaptain.MedCaptainMinaDecoder"/>
+    <bean id="medcaptaintohl7" class="com.fs.ie.processors.medcaptain.MedCaptainToHl7Processor"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route id="file2hl7">
+            <from uri="file:samples\data\out" />
+            <log message="${in.body}"/>
+            <unmarshal>
+            	<hl7/>
+            </unmarshal>
+            <to uri="netty4:tcp://localhost:2100?sync=true&amp;encoder=#hl7encoder&amp;decoder=#hl7decoder" />
+        </route>
+
+        <route id="rcvMedCaptainData">
+            <from uri="mina2:udp://localhost:26800?codec=#medCaptainCodec&amp;sync=false"/>
+            <process ref="medcaptaintohl7"/>
+            <to uri="netty4:tcp://localhost:2100?sync=true&amp;encoder=#hl7encoder&amp;decoder=#hl7decoder"/>
+        </route>
+        
+    </camelContext>
+ 
+</blueprint>
