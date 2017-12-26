@@ -4,12 +4,16 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/branding/branding.iml" filepath="$PROJECT_DIR$/branding/branding.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/components.iml" filepath="$PROJECT_DIR$/components/components.iml" />
+      <module fileurl="file://$PROJECT_DIR$/samples/convert2xml.iml" filepath="$PROJECT_DIR$/samples/convert2xml.iml" />
       <module fileurl="file://$PROJECT_DIR$/distribution/distribution.iml" filepath="$PROJECT_DIR$/distribution/distribution.iml" />
+      <module fileurl="file://$PROJECT_DIR$/examples/examples.iml" filepath="$PROJECT_DIR$/examples/examples.iml" />
       <module fileurl="file://$PROJECT_DIR$/fsie.iml" filepath="$PROJECT_DIR$/fsie.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/medcaptain/medcaptain.iml" filepath="$PROJECT_DIR$/components/medcaptain/medcaptain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/examples/medcaptain2xml/medcaptain2xml.iml" filepath="$PROJECT_DIR$/examples/medcaptain2xml/medcaptain2xml.iml" />
       <module fileurl="file://$PROJECT_DIR$/processors/medcaptaintohl7/medcaptaintohl7.iml" filepath="$PROJECT_DIR$/processors/medcaptaintohl7/medcaptaintohl7.iml" />
       <module fileurl="file://$PROJECT_DIR$/processors/processors.iml" filepath="$PROJECT_DIR$/processors/processors.iml" />
       <module fileurl="file://$PROJECT_DIR$/samples/samples.iml" filepath="$PROJECT_DIR$/samples/samples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/examples/todatabase/todatabase.iml" filepath="$PROJECT_DIR$/examples/todatabase/todatabase.iml" />
     </modules>
   </component>
 </project>

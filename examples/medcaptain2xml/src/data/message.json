@@ -1,0 +1,34 @@
+{"com.fs.ie.components.medcaptain.MedCaptainMessage": {
+    "commandCode": 864,
+    "device": {
+      "sn": "sn00000000000000001",
+      "deviceType": "注册泵",
+      "deviceModel": "model00000000000001",
+      "workstationSN": "ws00000000000000001"
+    },
+    "patient": {
+      "gender": 0,
+      "age": 0,
+      "height": 0,
+      "weight": 0,
+      "patientType": 0,
+      "department": "dpt0000000000000001",
+      "room": "room0000001",
+      "bed": "bed0000"
+    },
+    "mar": {
+      "status": "输注中",
+      "drug": "阿莫西林速溶片",
+      "injectionType": "速度模式",
+      "dosage": 500,
+      "speed": 250,
+      "passTime": 3600,
+      "remainTime": 3600,
+      "injectedAmount": 250,
+      "remainAmount": 250,
+      "warning": {
+        "string": "warning.31"
+      }
+    }
+  }
+}
