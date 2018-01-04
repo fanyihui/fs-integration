@@ -76,7 +76,7 @@ public class MedCaptainMessageHandler {
     protected static void handlePatientInfo(byte[] buf, MedCaptainMessage medCaptainMessage) {
         Patient patientInfoDTO = new Patient();
 
-        patientInfoDTO.setInpatientNo(ByteUtil.getString(buf, 11, 19));
+        patientInfoDTO.setPatientID(ByteUtil.getString(buf, 11, 19));
         logger.info("InpatientNo:" + ByteUtil.getString(buf, 11, 19));
 
         patientInfoDTO.setName(ByteUtil.getString(buf, 30, 19));

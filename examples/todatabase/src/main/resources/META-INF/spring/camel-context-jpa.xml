@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <bean id="medCaptainCodec" class="com.fs.ie.components.medcaptain.MedCaptainMinaCodecFactory"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <dataFormats>
+            <xstream id="xstream" permissions="+com.fs.ie.components.medcaptain.*"/>
+            <json id="json"/>
+        </dataFormats>
+
+        <route id="rcvMedCaptainData">
+            <from uri="mina2:udp://localhost:26800?codec=#medCaptainCodec&amp;sync=false"/>
+            <marshal ref="xstream"/>
+            <log message="${body}"/>
+            <choice>
+                <when>
+                    <xpath>/com.fs.ie.components.medcaptain.MedCaptainMessage/commandCode=864</xpath>
+                    <!--TODO step1: enrich patient info from db. Step2: transfer to hl7 and send out-->
+                    <unmarshal ref="xstream"/>
+                    <log message="${body}"/>
+                </when>
+                <when>
+                    <!--Patient Information Received, the data will be stored in the database-->
+                    <xpath>/com.fs.ie.components.medcaptain.MedCaptainMessage/commandCode=775</xpath>
+                    <unmarshal ref="xstream"/>
+                    <log message="${body}"/>
+                    <!--TODO add code here to same the patient information to database-->
+                </when>
+            </choice>
+        </route>
+    </camelContext>
+
+</beans>

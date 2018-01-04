@@ -10,8 +10,8 @@ import java.net.SocketException;
 public class UdpClient {
 	public static void main(String args[]){
 		UdpClient udpClient = new UdpClient();
-		udpClient.sendPatientInfo();
-		//udpClient.sendData();
+		//udpClient.sendPatientInfo();
+		udpClient.sendData();
 	}
 
 	public void sendData(){
@@ -62,19 +62,19 @@ public class UdpClient {
 		}
 
 		//department
-		byte[] department = "dpt0000000000000001".getBytes();
+		byte[] department = "Internal Medicine".getBytes();
 		for (int i=0;i<department.length;i++){
 			buf[69+i] = department[i];
 		}
 
 		//room
-		byte[] room = "room0000001".getBytes();
+		byte[] room = "room1".getBytes();
 		for (int i=0;i<room.length;i++){
 			buf[88+i] = room[i];
 		}
 
 		//bed
-		byte[] bed = "bed00001".getBytes();
+		byte[] bed = "bed1".getBytes();
 		for (int i=0;i<bed.length;i++){
 			buf[99+i] = bed[i];
 		}
@@ -175,13 +175,13 @@ public class UdpClient {
 		buf[9] = 0;
 		buf[10] = 5;
 
-		byte[] sn = "pid0000000000000001".getBytes();
+		byte[] sn = "4525285".getBytes();
 		for (int i=0;i<sn.length;i++){
 			buf[11+i] = sn[i];
 		}
 
 		try {
-			byte[] name = "无名氏".getBytes("UTF-8");
+			byte[] name = "Smith Tracy".getBytes("UTF-8");
 			for (int i=0;i<name.length;i++){
 				buf[30+i] = name[i];
 			}
@@ -189,7 +189,7 @@ public class UdpClient {
 			System.out.println(uee.getMessage());
 		}
 
-		buf[49] = "M".getBytes()[0];
+		buf[49] = "F".getBytes()[0];
 
 		buf[50] = ByteUtil.shortToByteArray((short) 5)[0];
 
@@ -206,19 +206,19 @@ public class UdpClient {
 		buf[59] = 0x03;
 
 		//department
-		byte[] department = "dpt0000000000000001".getBytes();
+		byte[] department = "Internal Medicine".getBytes();
 		for (int i=0;i<department.length;i++){
 			buf[60+i] = department[i];
 		}
 
 		//room
-		byte[] room = "room0000001".getBytes();
+		byte[] room = "room1".getBytes();
 		for (int i=0;i<room.length;i++){
 			buf[79+i] = room[i];
 		}
 
 		//bed
-		byte[] bed = "bed00001".getBytes();
+		byte[] bed = "bed1".getBytes();
 		for (int i=0;i<bed.length;i++){
 			buf[90+i] = bed[i];
 		}

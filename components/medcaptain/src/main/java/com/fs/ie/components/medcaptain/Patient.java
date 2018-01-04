@@ -1,7 +1,7 @@
 package com.fs.ie.components.medcaptain;
 
 public class Patient {
-    private String inpatientNo;
+    private String patientID;
 
     private String name;
 
@@ -23,12 +23,12 @@ public class Patient {
 
     private String order;
 
-    public String getInpatientNo() {
-        return inpatientNo;
+    public String getPatientID() {
+        return patientID;
     }
 
-    public void setInpatientNo(String inpatientNo) {
-        this.inpatientNo = inpatientNo;
+    public void setPatientID(String patientID) {
+        this.patientID = patientID;
     }
 
     public String getName() {

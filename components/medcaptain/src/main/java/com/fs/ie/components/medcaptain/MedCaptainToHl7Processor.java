@@ -34,7 +34,7 @@ public class MedCaptainToHl7Processor implements Processor {
 		msh.getSequenceNumber().setValue("123");
 		
 		PID pid = message.getPATIENT_RESULT().getPATIENT().getPID();
-		pid.getPatientIdentifierList(0).getID().setValue(medCaptainMessage.getPatient().getInpatientNo());
+		pid.getPatientIdentifierList(0).getID().setValue(medCaptainMessage.getPatient().getPatientID());
 		pid.getPatientName(0).getGivenName().setValue(medCaptainMessage.getPatient().getName());
 		pid.getAdministrativeSex().setValue(medCaptainMessage.getPatient().getGender() == 0 ? "M" : "F");
 		

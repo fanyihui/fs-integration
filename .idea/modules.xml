@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/examples/adt/adt.iml" filepath="$PROJECT_DIR$/examples/adt/adt.iml" />
       <module fileurl="file://$PROJECT_DIR$/branding/branding.iml" filepath="$PROJECT_DIR$/branding/branding.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/components.iml" filepath="$PROJECT_DIR$/components/components.iml" />
-      <module fileurl="file://$PROJECT_DIR$/samples/convert2xml.iml" filepath="$PROJECT_DIR$/samples/convert2xml.iml" />
       <module fileurl="file://$PROJECT_DIR$/distribution/distribution.iml" filepath="$PROJECT_DIR$/distribution/distribution.iml" />
+      <module fileurl="file://$PROJECT_DIR$/examples/enricher/enricher.iml" filepath="$PROJECT_DIR$/examples/enricher/enricher.iml" />
       <module fileurl="file://$PROJECT_DIR$/examples/examples.iml" filepath="$PROJECT_DIR$/examples/examples.iml" />
       <module fileurl="file://$PROJECT_DIR$/fsie.iml" filepath="$PROJECT_DIR$/fsie.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/medcaptain/medcaptain.iml" filepath="$PROJECT_DIR$/components/medcaptain/medcaptain.iml" />
