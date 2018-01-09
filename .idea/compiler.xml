@@ -11,15 +11,10 @@
         <module name="distribution" />
         <module name="enricher" />
         <module name="medcaptain" />
+        <module name="medcaptain2xml" />
         <module name="medcaptaintohl7" />
         <module name="samples" />
         <module name="todatabase" />
-      </profile>
-      <profile name="Annotation profile for fsie" enabled="true">
-        <sourceOutputDir name="../../samples/target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../../samples/target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="medcaptain2xml" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

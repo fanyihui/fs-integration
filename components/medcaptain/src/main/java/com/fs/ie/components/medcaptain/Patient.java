@@ -7,6 +7,8 @@ public class Patient {
 
     private int gender;
 
+    private String birthday;
+
     private int age;
 
     private float height;
@@ -109,5 +111,13 @@ public class Patient {
 
     public void setOrder(String order) {
         this.order = order;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 }
