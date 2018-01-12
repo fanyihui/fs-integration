@@ -20,8 +20,8 @@
         <module>components</module>
         <module>branding</module>
         <module>distribution</module>
-        <module>samples</module>
         <module>examples</module>
+        <module>mdgw</module>
         <!--module>samples</module-->
         <!--module>processors</module-->
     </modules>

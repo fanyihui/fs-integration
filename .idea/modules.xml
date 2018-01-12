@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/examples/enricher/enricher.iml" filepath="$PROJECT_DIR$/examples/enricher/enricher.iml" />
       <module fileurl="file://$PROJECT_DIR$/examples/examples.iml" filepath="$PROJECT_DIR$/examples/examples.iml" />
       <module fileurl="file://$PROJECT_DIR$/fsie.iml" filepath="$PROJECT_DIR$/fsie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mdgw/mdgw.iml" filepath="$PROJECT_DIR$/mdgw/mdgw.iml" />
       <module fileurl="file://$PROJECT_DIR$/components/medcaptain/medcaptain.iml" filepath="$PROJECT_DIR$/components/medcaptain/medcaptain.iml" />
       <module fileurl="file://$PROJECT_DIR$/examples/medcaptain2xml/medcaptain2xml.iml" filepath="$PROJECT_DIR$/examples/medcaptain2xml/medcaptain2xml.iml" />
       <module fileurl="file://$PROJECT_DIR$/processors/medcaptaintohl7/medcaptaintohl7.iml" filepath="$PROJECT_DIR$/processors/medcaptaintohl7/medcaptaintohl7.iml" />

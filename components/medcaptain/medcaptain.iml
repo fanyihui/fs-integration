@@ -4,6 +4,7 @@
     <facet type="Osmorc" name="OSGi">
       <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="medcaptain-1.0-SNAPSHOT.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="" bundleSymbolicName="medcaptain" bundleVersion="1.0.0.SNAPSHOT" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
         <additionalProperties>
+          <property key="Bundle-Description" value="FSIE MedCaptain Component" />
           <property key="Import-Package" value="*" />
           <property key="Bundle-Name" value="fsie :: MedCaptain" />
           <property key="Include-Resource" value="conf/hl7server.properties=$MODULE_DIR$/src/main/resources/conf/hl7server.properties,conf/resource.properties=$MODULE_DIR$/src/main/resources/conf/resource.properties,log4j.properties=$MODULE_DIR$/src/main/resources/log4j.properties" />
