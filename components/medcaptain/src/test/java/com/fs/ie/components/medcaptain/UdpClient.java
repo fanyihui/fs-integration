@@ -236,7 +236,6 @@ public class UdpClient {
 		try{
 			socket.send(packet);
 			socket.close();
-			System.out.println(buf);
 		} catch (IOException e){
 			e.printStackTrace();
 		}
