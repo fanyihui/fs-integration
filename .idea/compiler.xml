@@ -10,6 +10,7 @@
         <module name="branding" />
         <module name="distribution" />
         <module name="enricher" />
+        <module name="fsie-core" />
         <module name="mdgw" />
         <module name="medcaptain" />
         <module name="medcaptain2xml" />
@@ -27,6 +28,7 @@
       <module name="enricher" target="1.8" />
       <module name="examples" target="1.5" />
       <module name="fsie" target="1.5" />
+      <module name="fsie-core" target="1.6" />
       <module name="mdgw" target="1.8" />
       <module name="medcaptain" target="1.8" />
       <module name="medcaptain2xml" target="1.8" />

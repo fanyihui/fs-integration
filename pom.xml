@@ -22,6 +22,7 @@
         <module>distribution</module>
         <module>examples</module>
         <module>mdgw</module>
+        <module>fsie-core</module>
         <!--module>samples</module-->
         <!--module>processors</module-->
     </modules>
