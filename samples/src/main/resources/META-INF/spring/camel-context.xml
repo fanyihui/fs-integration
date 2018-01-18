@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+  <bean id="hl7decoder" class="org.apache.camel.component.hl7.HL7MLLPNettyDecoderFactory"/>
+  <bean id="hl7encoder" class="org.apache.camel.component.hl7.HL7MLLPNettyEncoderFactory"/>
+  <bean id="medcaptaindecoder" class="com.fs.ie.components.medcaptain.MedCaptainMinaCodecFactory"/>
+  <bean id="medcaptaintohl7" class="com.fs.ie.components.medcaptain.MedCaptainToHl7Processor"/>
+
+  <camelContext xmlns="http://camel.apache.org/schema/spring">
+    <!-- here is a sample which processes the input files
+         (leaving them in place - see the 'noop' flag)
+         then performs content based routing on the message using XPath -->
+      <route id="rcvMedCaptainData">
+        <from uri="mina2:udp://localhost:26800?codec=#medCaptainCodec&amp;sync=false"/>
+        <process ref="medcaptaintohl7"/>
+        <to uri="netty4:tcp://localhost:2100?sync=true&amp;encoder=#hl7encoder&amp;decoder=#hl7decoder"/>
+      </route>
+  </camelContext>
+
+</beans>

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.fs.ie.components.medcaptain.MedCaptainMessage>
+    <commandCode>864</commandCode>
+    <device>
+        <sn>sn00000000000000001</sn>
+        <deviceType>注册泵</deviceType>
+        <deviceModel>model00000000000001</deviceModel>
+        <workstationSN>ws00000000000000001</workstationSN>
+    </device>
+    <patient>
+        <gender>0</gender>
+        <age>0</age>
+        <height>0.0</height>
+        <weight>0.0</weight>
+        <patientType>0</patientType>
+        <department>dpt0000000000000001</department>
+        <room>room0000001</room>
+        <bed>bed0000</bed>
+    </patient>
+    <mar>
+        <status>输注中</status>
+        <drug>阿莫西林速溶片</drug>
+        <injectionType>速度模式</injectionType>
+        <dosage>500.0</dosage>
+        <speed>250.0</speed>
+        <passTime>3600</passTime>
+        <remainTime>3600</remainTime>
+        <injectedAmount>250.0</injectedAmount>
+        <remainAmount>250.0</remainAmount>
+        <warning>
+            <string>warning.31</string>
+        </warning>
+    </mar>
+</com.fs.ie.components.medcaptain.MedCaptainMessage>

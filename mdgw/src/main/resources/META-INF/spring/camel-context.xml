@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <bean id="hl7decoder" class="org.apache.camel.component.hl7.HL7MLLPNettyDecoderFactory"/>
+    <bean id="hl7encoder" class="org.apache.camel.component.hl7.HL7MLLPNettyEncoderFactory"/>
+    <bean id="medCaptainCodec" class="com.fs.ie.components.medcaptain.MedCaptainMinaCodecFactory"/>
+    <bean id="medcaptaintohl7" class="com.fs.ie.components.medcaptain.MedCaptainToHl7Processor"/>
+    <bean id="medcaptaindataformat" class="com.fs.ie.components.medcaptain.MedCaptainDataFormat"/>
+    <bean id="patInfoEnrichStrategy" class="com.fs.ie.components.medcaptain.PatientInfoEnrichStrategy"/>
+
+    <bean id="mydb"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://192.168.43.138/fsie_gw"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <dataFormats>
+            <xstream id="xstream" permissions="+com.fs.ie.components.medcaptain.*"/>
+            <json id="json"/>
+        </dataFormats>
+
+        <!--当患者完成入院登记后，接收入院信息并保存,可根据需要，同时发送到设备（设备处在开启状态）-->
+        <route id="adt">
+            <from uri="netty4:tcp://localhost:2100?sync=true&amp;encoder=#hl7encoder&amp;decoder=#hl7decoder"/>
+            <log message="${in.body}"/>
+            <unmarshal>
+                <hl7/>
+            </unmarshal>
+            <choice>
+                <when>
+                    <simple>${header.CamelHL7TriggerEvent} == A01</simple>
+                    <bean ref="hl72sql" method="admit"/>
+                    <log message="${in.body}"/>
+                    <to uri="jdbc:dataSource?useHeadersAsParameters=true" />
+                </when>
+                <when>
+                    <simple>${header.CamelHL7TriggerEvent} == A03</simple>
+                    <bean ref="hl72sql" method="discharge"/>
+                    <log message="${in.body}"/>
+                    <to uri="jdbc:dataSource?useHeadersAsParameters=true"/>
+                </when>
+            </choice>
+
+        </route>
+
+        <!--从设备获取数据，并封装成HL7发送出去-->
+        <route id="rcvMedCaptainData">
+            <from uri="mina2:udp://localhost:26800?codec=#medCaptainCodec&amp;sync=false"/>
+            <choice>
+                <when>
+                    <simple>${body.commandCode} == 864</simple>
+                    <log message="The bed number is: ${body.patient.bed}"/>
+                    <enrich strategyRef="patInfoEnrichStrategy">
+                        <simple>sql:select * from med_order where Bed='${body.patient.bed}' and
+                            IsActive=1?dataSource=mydb
+                        </simple>
+                    </enrich>
+                    <log message="${in.body}"/>
+                    <process ref="medcaptaintohl7"/>
+                    <to uri="netty4:tcp://localhost:2100?sync=true&amp;encoder=#hl7encoder&amp;decoder=#hl7decoder"/>
+                </when>
+                <when>
+                    <!--Patient Information Received, the data will be stored in the database-->
+                    <xpath>/com.fs.ie.components.medcaptain.MedCaptainMessage/commandCode=775</xpath>
+                    <unmarshal ref="xstream"/>
+                    <log message="${body}"/>
+                    <!--TODO add code here to same the patient information to database-->
+                </when>
+            </choice>
+        </route>
+
+    </camelContext>
+</beans>

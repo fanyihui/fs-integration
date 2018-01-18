@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <bean id="hl7decoder" class="org.apache.camel.component.hl7.HL7MLLPNettyDecoderFactory"/>
+    <bean id="hl7encoder" class="org.apache.camel.component.hl7.HL7MLLPNettyEncoderFactory"/>
+    <bean id="hl72sql" class="com.fs.ie.examples.adt.Hl7ToSQL"/>
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://192.168.43.137/fsie_gw" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <route>
+            <from uri="netty4:tcp://localhost:2100?sync=true&amp;encoder=#hl7encoder&amp;decoder=#hl7decoder"/>
+            <!--from uri="file:examples/data/out" /-->
+            <log message="${in.body}"/>
+            <unmarshal>
+                <hl7/>
+            </unmarshal>
+            <choice>
+                <when>
+                    <simple>${header.CamelHL7TriggerEvent} == A01</simple>
+                    <bean ref="hl72sql" method="admit"/>
+                    <log message="${in.body}"/>
+                    <to uri="jdbc:dataSource?useHeadersAsParameters=true" />
+                </when>
+                <when>
+                    <simple>${header.CamelHL7TriggerEvent} == A03</simple>
+                    <bean ref="hl72sql" method="discharge"/>
+                    <log message="${in.body}"/>
+                    <to uri="jdbc:dataSource?useHeadersAsParameters=true"/>
+                </when>
+            </choice>
+
+        </route>
+    </camelContext>
+
+</beans>
