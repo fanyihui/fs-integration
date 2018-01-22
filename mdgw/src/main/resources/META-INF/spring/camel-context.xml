@@ -13,6 +13,7 @@
     <bean id="medcaptaintohl7" class="com.fs.ie.components.medcaptain.MedCaptainToHl7Processor"/>
     <bean id="medcaptaindataformat" class="com.fs.ie.components.medcaptain.MedCaptainDataFormat"/>
     <bean id="patInfoEnrichStrategy" class="com.fs.ie.components.medcaptain.PatientInfoEnrichStrategy"/>
+    <bean id="patientADT" class="com.fs.ie.mdgw.processor.PatientADT"/>
 
     <bean id="mydb"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -38,15 +39,15 @@
             <choice>
                 <when>
                     <simple>${header.CamelHL7TriggerEvent} == A01</simple>
-                    <bean ref="hl72sql" method="admit"/>
+                    <bean ref="patientADT" method="admit"/>
                     <log message="${in.body}"/>
-                    <to uri="jdbc:dataSource?useHeadersAsParameters=true" />
+                    <to uri="jdbc:mydb?useHeadersAsParameters=true" />
                 </when>
                 <when>
                     <simple>${header.CamelHL7TriggerEvent} == A03</simple>
-                    <bean ref="hl72sql" method="discharge"/>
+                    <bean ref="patientADT" method="discharge"/>
                     <log message="${in.body}"/>
-                    <to uri="jdbc:dataSource?useHeadersAsParameters=true"/>
+                    <to uri="jdbc:mydb?useHeadersAsParameters=true"/>
                 </when>
             </choice>
 
