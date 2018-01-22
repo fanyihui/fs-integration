@@ -1,4 +1,4 @@
-package com.fs.ie;
+package com.fs.ie.mdgw;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
