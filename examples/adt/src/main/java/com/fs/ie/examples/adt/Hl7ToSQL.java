@@ -4,7 +4,7 @@ import ca.uhn.hl7v2.HL7Exception;
 import ca.uhn.hl7v2.model.Message;
 import ca.uhn.hl7v2.util.Terser;
 
-public class Hl7ToSQL {
+public class    Hl7ToSQL {
     public String admit(Message message) throws HL7Exception{
         String sql = "insert into med_order (" +
                 "PatientName, " +

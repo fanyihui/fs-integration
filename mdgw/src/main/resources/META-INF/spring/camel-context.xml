@@ -14,6 +14,7 @@
     <bean id="medcaptaindataformat" class="com.fs.ie.components.medcaptain.MedCaptainDataFormat"/>
     <bean id="patInfoEnrichStrategy" class="com.fs.ie.components.medcaptain.PatientInfoEnrichStrategy"/>
     <bean id="patientADT" class="com.fs.ie.mdgw.processor.PatientADT"/>
+    <bean id="failureProcessor" class="com.fs.ie.processor.FailureProcessor"/>
 
     <bean id="mydb"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -23,7 +24,13 @@
         <property name="password" value="root"/>
     </bean>
 
-    <camelContext xmlns="http://camel.apache.org/schema/spring">
+    <bean id="patientdb" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+        <property name="url" value="jdbc:derby:data/mdgw_db;create=true"/>
+    </bean>
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring" errorHandlerRef="dlc">
+        <errorHandler id="dlc" type="DeadLetterChannel" deadLetterUri="" useOriginalMessage="true" onPrepareFailureRef="failureProcessor"/>
         <dataFormats>
             <xstream id="xstream" permissions="+com.fs.ie.components.medcaptain.*"/>
             <json id="json"/>
