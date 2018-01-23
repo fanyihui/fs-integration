@@ -19,10 +19,11 @@
     <modules>
         <module>components</module>
         <module>branding</module>
-        <module>distribution</module>
-        <module>examples</module>
-        <module>mdgw</module>
+        <!--module>distribution</module-->
+        <!--module>examples</module-->
         <module>fsie-core</module>
+        <module>mdgw</module>
+
         <!--module>samples</module-->
         <!--module>processors</module-->
     </modules>
