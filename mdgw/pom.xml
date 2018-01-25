@@ -83,7 +83,7 @@
             <version>${camel-version}</version>
         </dependency>
 
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-xstream</artifactId>
             <version>${camel-version}</version>
@@ -99,7 +99,7 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jackson</artifactId>
             <version>${camel-version}</version>
-        </dependency>
+        </dependency-->
 
         <!--HL7 library-->
         <dependency>
