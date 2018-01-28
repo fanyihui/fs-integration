@@ -16,7 +16,7 @@ public class PatientADT {
                 "Bed, " +
                 "Weight, " +
                 "Height, " +
-                "PatientType) " +
+                "PatientType, IsActive) " +
                 "values (";
 
         Terser terser = new Terser(message);
@@ -43,7 +43,7 @@ public class PatientADT {
                 "'"+bed + "', "+
                 weight +", "+
                 height + ", "+
-                patientType + ")";
+                patientType + ", 1)";
 
         return sql;
     }
@@ -64,7 +64,6 @@ public class PatientADT {
         String patientType = terser.get("/PV1-18");
 
         sql = sql + "PatientName='"+patient_name +"' and Bed='"+bed+"' and PatientID='"+patient_id+"' and IsActive=1";
-
 
         return sql;
     }

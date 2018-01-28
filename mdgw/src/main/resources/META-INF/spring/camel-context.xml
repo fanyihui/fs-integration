@@ -48,13 +48,13 @@
                     <simple>${header.CamelHL7TriggerEvent} == A01</simple>
                     <bean ref="patientADT" method="admit"/>
                     <log message="${in.body}"/>
-                    <to uri="jdbc:mydb?useHeadersAsParameters=true" />
+                    <to uri="jdbc:patientdb?useHeadersAsParameters=true" />
                 </when>
                 <when>
                     <simple>${header.CamelHL7TriggerEvent} == A03</simple>
                     <bean ref="patientADT" method="discharge"/>
                     <log message="${in.body}"/>
-                    <to uri="jdbc:mydb?useHeadersAsParameters=true"/>
+                    <to uri="jdbc:patientdb?useHeadersAsParameters=true"/>
                 </when>
             </choice>
 
@@ -68,20 +68,21 @@
                     <simple>${body.commandCode} == 864</simple>
                     <log message="The bed number is: ${body.patient.bed}"/>
                     <enrich strategyRef="patInfoEnrichStrategy">
-                        <simple>sql:select * from med_order where Bed='${body.patient.bed}' and
-                            IsActive=1?dataSource=mydb
+                        <simple>sql:select * from med_order where Bed='${body.patient.bed}' and IsActive=1?dataSource=patientdb
                         </simple>
                     </enrich>
                     <log message="${in.body}"/>
                     <process ref="medcaptaintohl7"/>
-                    <to uri="netty4:tcp://localhost:2100?sync=true&amp;encoder=#hl7encoder&amp;decoder=#hl7decoder"/>
+                    <log message="${in.body}"/>
+                    <to uri="netty4:tcp://localhost:2200?sync=true&amp;encoder=#hl7encoder&amp;decoder=#hl7decoder"/>
                 </when>
                 <when>
                     <!--Patient Information Received, the data will be stored in the database-->
-                    <xpath>/com.fs.ie.components.medcaptain.MedCaptainMessage/commandCode=775</xpath>
-                    <unmarshal ref="xstream"/>
+                    <simple>${body.commandCode} == 775</simple>
+                    <!--xpath>/com.fs.ie.components.medcaptain.MedCaptainMessage/commandCode=775</xpath-->
+                    <!--unmarshal ref="xstream"/-->
                     <log message="${body}"/>
-                    <!--TODO add code here to same the patient information to database-->
+                    <!--TODO add code here to save the patient information to database-->
                 </when>
             </choice>
         </route>
