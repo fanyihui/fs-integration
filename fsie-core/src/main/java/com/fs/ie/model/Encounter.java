@@ -1,4 +1,4 @@
-package com.fs.ie.mdgw.model;
+package com.fs.ie.model;
 
 import java.util.Date;
 

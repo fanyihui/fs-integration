@@ -1,4 +1,4 @@
-package com.fs.ie.mdgw.model;
+package com.fs.ie.model;
 
 /**
  * Created by faen on 2018/2/5.

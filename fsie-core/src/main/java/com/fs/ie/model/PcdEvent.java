@@ -1,8 +1,5 @@
-package com.fs.ie.mdgw.model;
+package com.fs.ie.model;
 
-import com.sun.scenario.effect.impl.prism.PrImage;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 
