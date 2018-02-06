@@ -1,4 +1,4 @@
-package com.fs.ie.model;
+package com.fs.ie.model.valueset;
 
 /**
  * Created by faen on 2018/2/5.

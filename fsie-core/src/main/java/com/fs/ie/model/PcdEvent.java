@@ -1,5 +1,7 @@
 package com.fs.ie.model;
 
+import com.fs.ie.model.valueset.EventTypeEnum;
+
 import java.util.ArrayList;
 import java.util.Date;
 
