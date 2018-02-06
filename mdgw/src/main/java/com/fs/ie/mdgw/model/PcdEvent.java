@@ -2,6 +2,7 @@ package com.fs.ie.mdgw.model;
 
 import com.sun.scenario.effect.impl.prism.PrImage;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,16 +10,16 @@ import java.util.Date;
  * Created by faen on 2018/2/5.
  */
 public class PcdEvent {
-    private int eventType;
+    private EventTypeEnum eventType;
     private Date eventDateTime;
     private Encounter encounter;
     private ArrayList<Observation> observations;
 
-    public int getEventType() {
+    public EventTypeEnum getEventType() {
         return eventType;
     }
 
-    public void setEventType(int eventType) {
+    public void setEventType(EventTypeEnum eventType) {
         this.eventType = eventType;
     }
 
