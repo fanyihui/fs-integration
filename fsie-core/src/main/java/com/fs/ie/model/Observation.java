@@ -1,22 +1,24 @@
 package com.fs.ie.model;
 
+import com.fs.ie.model.valueset.ObservationValueTypeCode;
+
 import java.util.Date;
 
 /**
  * Created by faen on 2018/2/5.
  */
 public class Observation {
-    private String valueType;
+    private ObservationValueTypeCode valueType;
     private String observationConceptCode;
     private String value;
     private String unit;
     private Date observationDatetime;
 
-    public String getValueType() {
+    public ObservationValueTypeCode getValueType() {
         return valueType;
     }
 
-    public void setValueType(String valueType) {
+    public void setValueType(ObservationValueTypeCode valueType) {
         this.valueType = valueType;
     }
 
