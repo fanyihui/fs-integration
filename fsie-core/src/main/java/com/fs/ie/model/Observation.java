@@ -1,6 +1,7 @@
 package com.fs.ie.model;
 
 import com.fs.ie.model.valueset.ObservationValueTypeCode;
+import com.sun.org.apache.bcel.internal.classfile.Code;
 
 import java.util.Date;
 
@@ -9,7 +10,7 @@ import java.util.Date;
  */
 public class Observation {
     private ObservationValueTypeCode valueType;
-    private String observationConceptCode;
+    private CodeDefinition observationConceptCode;
     private String value;
     private String unit;
     private Date observationDatetime;
@@ -22,11 +23,11 @@ public class Observation {
         this.valueType = valueType;
     }
 
-    public String getObservationConceptCode() {
+    public CodeDefinition getObservationConceptCode() {
         return observationConceptCode;
     }
 
-    public void setObservationConceptCode(String observationConceptCode) {
+    public void setObservationConceptCode(CodeDefinition observationConceptCode) {
         this.observationConceptCode = observationConceptCode;
     }
 

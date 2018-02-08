@@ -2,7 +2,6 @@ package com.fs.ie.model.valueset;
 
 import com.fs.ie.model.CodeDefinition;
 import com.fs.ie.model.CodeSystem;
-import com.sun.tools.javac.jvm.Code;
 
 public class MDCCode {
     public static CodeSystem mdcCodeSystem = new CodeSystem("", "MDC", "MDC Terms");
