@@ -6,7 +6,9 @@ public class CodeDefinition {
     private String codeDescription;
 
     public CodeDefinition(String code, CodeSystem codeSystem, String codeDescription){
-
+        this.code = code;
+        this.codeSystem = codeSystem;
+        this.codeDescription = codeDescription;
     }
 
     public String getCode() {

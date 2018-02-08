@@ -5,6 +5,12 @@ public class CodeSystem {
     private String codeSystemName;
     private String codeSystemDesc;
 
+    public CodeSystem(String codeSystemOID, String codeSystemName, String codeSystemDesc){
+        this.codeSystemOID = codeSystemOID;
+        this.codeSystemName = codeSystemName;
+        this.codeSystemDesc = codeSystemDesc;
+    }
+
     public String getCodeSystemOID() {
         return codeSystemOID;
     }
