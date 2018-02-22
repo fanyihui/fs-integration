@@ -9,8 +9,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        ClassPathXmlApplicationContext applicationContext =
-                new ClassPathXmlApplicationContext("META-INF/spring/camel-context.xml");
+        /*ClassPathXmlApplicationContext applicationContext =
+                new ClassPathXmlApplicationContext("META-INF/spring/camel-context.xml");*/
+
         /*Message message = new DefaultModelClassFactory().getMessageClass("ADT_A01", "2.3", false).newInstance();
 
         Terser terser = new Terser(message);
@@ -20,5 +21,12 @@ public class Main {
         terser.set("/PID-3", "1234567");
         terser.set("/PID-5-1", "John");
         terser.set("/PID-5-2", "Smith");*/
+
+        GenericMessage message = new GenericMessage.V26(new DefaultModelClassFactory());
+        message.initQuickstart("ORU", "R42", "P");
+
+        message.addNonstandardSegment("PID");
+        message.addNonstandardSegment("PV1");
+
     }
 }

@@ -38,126 +38,113 @@ public class PcdToHL7Processor implements Processor{
         PcdEvent pcdEvent = exchange.getIn().getBody(PcdEvent.class);
         EventTypeEnum eventType = pcdEvent.getEventType();
 
-        Message message = null;
+        Encounter encounter = pcdEvent.getEncounter();
+        Patient patient = encounter.getPatient();
+        ArrayList<Observation> observations = pcdEvent.getObservations();
+
+        GenericMessage message = new GenericMessage.V26(new DefaultModelClassFactory());
+        String messageCode = "ORU";
+        String messageTriggerEvent = "R01";
+        String processingId = "P";
+        String profileOid = "";
+
 
         switch (eventType){
             case PCDDATA:
-                message = generateORU_R01(pcdEvent);
+                profileOid = "1.3.6.1.4.1.19376.1.6.1.1.1";
                 break;
             case PCD09:
-                //messageCode = "ORU";
-                //triggerEvent = "R01";
+                profileOid = "1.3.6.1.4.1.19376.1.6.1.9.1";
                 break;
             case ALERT:
-                //messageCode = "ORU";
-                //triggerEvent = "R40";
+                messageCode = "ORU";
+                messageTriggerEvent = "R40";
+                profileOid = "1.3.6.1.4.1.19376.1.6.1.4.1";
                 break;
             case IPEC:
-                //messageCode = "ORU";
-                //triggerEvent = "R42";
+                messageCode = "ORU";
+                messageTriggerEvent = "R42";
+                profileOid = "1.3.6.1.4.1.19376.1.6.4.10";
                 break;
             case CIO:
-                //TODO transfer to RGV^O15
-                //messageCode = "RGV";
-                //triggerEvent = "015";
+                messageCode = "RGV";
+                messageTriggerEvent = "015";
+                profileOid = "1.3.6.1.4.1.19376.1.6.1.3.1";
                 break;
             default:
                 break;
         }
 
-        logger.info("Generating HL7 Message: \n" + message);
-        exchange.getIn().setBody(message, Message.class);
-    }
+        message.initQuickstart(messageCode,messageTriggerEvent,processingId);
+        message.addNonstandardSegment("PID");
+        message.addNonstandardSegment("PV1");
+        Terser terser = new Terser(message);
 
-    private Message generateORU_R01(PcdEvent pcdEvent) throws IOException, HL7Exception{
-        if (pcdEvent == null){
-            return null;
-        }
+        //Set MSH
+        terser.set("MSH-3","pcd-gateway");
+        terser.set("MSH-4", "fs");
+        terser.set("MSH-21-3", profileOid);
+        terser.set("MSH-21-4", "PCD");
 
-        Encounter encounter = pcdEvent.getEncounter();
-        Patient patient = encounter.getPatient();
-        ArrayList<Observation> observations = pcdEvent.getObservations();
+        //Set PID
+        terser.set("PID-3(0)-1", patient.getPatientId());
+        terser.set("PID-5(0)-1", patient.getSurnName());
+        terser.set("PID-5(0)-2", patient.getGivenName());
+        terser.set("PID-7", patient.getBirthdate());
+        terser.set("PID-8", patient.getGender());
 
-        ORU_R01 oru_r01 = new ORU_R01();
-        oru_r01.initQuickstart("ORU", "R01", "P");
+        //Set PV1
+        terser.set("PV1-2", "I");
+        terser.set("PV1-3-1", encounter.getDepartment());
+        terser.set("PV1-3-2", encounter.getRoomNo());
+        terser.set("PV1-3-3", encounter.getBedNo());
 
-        PID pid = oru_r01.getPATIENT_RESULT().getPATIENT().getPID();
-        pid.getPatientIdentifierList(0).getIDNumber().setValue(patient.getPatientId());
-        pid.getPatientName(0).getGivenName().setValue(patient.getGivenName());
-        pid.getPatientName(0).getFamilyName().getSurname().setValue(patient.getSurnName());
-        pid.getAdministrativeSex().setValue(patient.getGender());
-        pid.getDateTimeOfBirth().setValue(patient.getBirthdate());
-
-        PV1 pv1 = oru_r01.getPATIENT_RESULT().getPATIENT().getVISIT().getPV1();
-        pv1.getPatientClass().setValue("I");
-        pv1.getAssignedPatientLocation().getPointOfCare().setValue(encounter.getDepartment());
-        pv1.getAssignedPatientLocation().getRoom().setValue(encounter.getRoomNo());
-        pv1.getAssignedPatientLocation().getBed().setValue(encounter.getBedNo());
-
-        for(int i=0;i<observations.size();i++){
+        //Set OBX
+        for (int i = 0; i < observations.size(); i++) {
+            message.addNonstandardSegment("OBX");
             Observation observation = observations.get(i);
-
+            ObservationValueTypeCode valueTypeCode = observation.getValueType();
             CodeDefinition codeDefinition = observation.getObservationConceptCode();
             String code = codeDefinition.getCode();
             String codeSystemName = codeDefinition.getCodeSystem().getCodeSystemName();
             String codeDesc = codeDefinition.getCodeDescription();
-
             String value = observation.getValue();
-            String unit = observation.getUnit();
+            Unit unit = observation.getUnit();
 
-            ObservationValueTypeCode observationValueTypeCode = observation.getValueType();
+            terser.set("OBX("+i+")-1", ""+(i+1));
+            terser.set("OBX("+i+")-2", valueTypeCode.getValueTypeCode());
+            terser.set("OBX("+i+")-3-1", code);
+            terser.set("OBX("+i+")-3-2", codeDesc);
+            terser.set("OBX("+i+")-3-3", codeSystemName);
 
-            ORU_R01_ORDER_OBSERVATION order_observation = oru_r01.getPATIENT_RESULT().getORDER_OBSERVATION();
-            OBX obx = order_observation.getOBSERVATION(0).getOBX();
-            obx.getSetIDOBX().setValue(""+(i+1));
-            obx.getObservationIdentifier().getIdentifier().setValue(code);
-            obx.getObservationIdentifier().getText().setValue(codeDesc);
-            obx.getObservationIdentifier().getNameOfCodingSystem().setValue(codeSystemName);
-            obx.getUnits().getIdentifier().setValue(unit);
-
-            Varies varies = obx.getObservationValue(0);
-
-            switch (observationValueTypeCode){
-                case TX:
-                    TX tx = new TX(oru_r01);
-                    tx.setValue(value);
-                    varies.setData(tx);
-                    break;
+            switch (valueTypeCode){
                 case NM:
-                    NM nm = new NM(oru_r01);
-                    nm.setValue(value);
-                    varies.setData(nm);
+                    terser.set("OBX("+i+")-5", value);
+                    terser.set("OBX("+i+")-6-1", unit.getUnitId());
+                    terser.set("OBX("+i+")-6-2", unit.getUnitText());
+                    terser.set("OBX("+i+")-6-3", unit.getUnitSystemName());
+                    terser.set("OBX("+i+")-6-4", unit.getUccmUnit().getUnitId());
+                    terser.set("OBX("+i+")-6-5", unit.getUccmUnit().getUnitText());
+                    terser.set("OBX("+i+")-6-6", unit.getUccmUnit().getUnitSystemName());
                     break;
                 case ST:
-                    ST st = new ST(oru_r01);
-                    st.setValue(value);
-                    varies.setData(st);
+                    terser.set("OBX("+i+")-5", value);
+                    break;
+                case TX:
+                    terser.set("OBX("+i+")-5", value);
                     break;
                 case CWE:
-                    CWE cwe = new CWE(oru_r01);
-                    cwe.getText().setValue(value);
-                    varies.setData(cwe);
+                    //TODO for coded value
+                    terser.set("OBX("+i+")-5", value);
                     break;
                 default:
                     break;
             }
 
+
         }
 
-        return oru_r01;
-    }
-
-    private Message generateORU_R42(PcdEvent pcdEvent) throws IOException, HL7Exception{
-        GenericMessage message = new GenericMessage.V26(new DefaultModelClassFactory());
-        message.initQuickstart("ORU", "R42", "P");
-        PID pid = (PID)message.get("PID");
-
-        Terser terser = new Terser(message);
-        terser.set("MSH-3","FSIE-MDGW");
-        terser.set("MSH-4", "FSIE");
-
-
-
-        return message;
+        logger.info("Generating HL7 Message: \n" + message);
+        exchange.getIn().setBody(message, Message.class);
     }
 }

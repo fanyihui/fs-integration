@@ -12,7 +12,7 @@ public class Observation {
     private ObservationValueTypeCode valueType;
     private CodeDefinition observationConceptCode;
     private String value;
-    private String unit;
+    private Unit unit;
     private Date observationDatetime;
 
     public ObservationValueTypeCode getValueType() {
@@ -39,11 +39,11 @@ public class Observation {
         this.value = value;
     }
 
-    public String getUnit() {
+    public Unit getUnit() {
         return unit;
     }
 
-    public void setUnit(String unit) {
+    public void setUnit(Unit unit) {
         this.unit = unit;
     }
 
