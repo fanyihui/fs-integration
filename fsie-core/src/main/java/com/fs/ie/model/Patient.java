@@ -1,5 +1,8 @@
 package com.fs.ie.model;
 
+import com.fs.ie.model.valueset.GenderCode;
+import com.sun.tools.javah.Gen;
+
 /**
  * Created by faen on 2018/2/5.
  */
@@ -7,7 +10,7 @@ public class Patient {
     private String patientId;
     private String surnName;
     private String givenName;
-    private String gender;
+    private GenderCode gender;
     private String birthdate;
 
     public String getPatientId() {
@@ -34,11 +37,11 @@ public class Patient {
         this.givenName = givenName;
     }
 
-    public String getGender() {
+    public GenderCode getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(GenderCode gender) {
         this.gender = gender;
     }
 

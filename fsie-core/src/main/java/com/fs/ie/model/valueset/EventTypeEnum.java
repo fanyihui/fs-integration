@@ -5,11 +5,13 @@ package com.fs.ie.model.valueset;
  */
 public enum EventTypeEnum {
     //the value assigned for each enum is come from IHE PCD profile.
-    //IPEC - Infusion Pump Event Communication
-    //PCD03: Communicate Infusion Order
-    //PCD09: Implantable Device – Cardiac
-    //PCD01: Communicate PCD data
-    PCDDATA("PCD01"), ALERT("PCD04"), IPEC("IPEC"), CIO("PCD03"), PCD09("PCD09");
+    //IPEC - Infusion Pump Event Communication, PCD10
+    //PCD03: Communicate Infusion Order, Point-of-Care Infusion Verification (PIV) Profile
+    //PCD09: Implantable Device – Cardiac - Observation profile
+    //PCD01: Communicate PCD data, DEC profile
+    //PCD04: Report Alert, Actor AR, outbound
+    //PCD05: Report Alert Status, Actor AR, Inbound
+    PCD01("PCD01"), ALERT("PCD04"), PCD05("PCD05"), IPEC("IPEC"), PCD03("PCD03"), PCD09("PCD09");
 
     // 定义一个 private 修饰的实例变量
     private String eventType;

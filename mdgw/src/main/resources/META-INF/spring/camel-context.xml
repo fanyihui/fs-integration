@@ -15,6 +15,7 @@
     <bean id="patInfoEnrichStrategy" class="com.fs.ie.components.medcaptain.PatientInfoEnrichStrategy"/>
     <bean id="patientADT" class="com.fs.ie.mdgw.processor.PatientADT"/>
     <bean id="failureProcessor" class="com.fs.ie.processor.FailureProcessor"/>
+    <bean id="pcdtohl7" class="com.fs.ie.mdgw.processor.PcdToHL7Processor"/>
 
     <bean id="mydb"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -31,10 +32,6 @@
 
     <camelContext xmlns="http://camel.apache.org/schema/spring">
         <!--errorHandler id="dlc" type="DeadLetterChannel" deadLetterUri="" useOriginalMessage="true" onPrepareFailureRef="failureProcessor"/-->
-        <!--dataFormats>
-            <xstream id="xstream" permissions="+com.fs.ie.components.medcaptain.*"/>
-            <json id="json"/>
-        </dataFormats-->
 
         <!--当患者完成入院登记后，接收入院信息并保存,可根据需要，同时发送到设备（设备处在开启状态）-->
         <route id="adt">

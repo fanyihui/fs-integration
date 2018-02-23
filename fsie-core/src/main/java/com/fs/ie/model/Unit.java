@@ -4,7 +4,13 @@ public class Unit {
     private String unitId;
     private String unitText;
     private String unitSystemName;
-    private Unit uccmUnit;
+    private Unit alternativeUnit;
+
+    public Unit(String unitId, String unitText, String unitSystemName){
+        this.unitId = unitId;
+        this.unitText = unitText;
+        this.unitSystemName = unitSystemName;
+    }
 
     public String getUnitId() {
         return unitId;
@@ -30,11 +36,11 @@ public class Unit {
         this.unitSystemName = unitSystemName;
     }
 
-    public Unit getUccmUnit() {
-        return uccmUnit;
+    public Unit getAlternativeUnit() {
+        return alternativeUnit;
     }
 
-    public void setUccmUnit(Unit uccmUnit) {
-        this.uccmUnit = uccmUnit;
+    public void setAlternativeUnit(Unit alternativeUnit) {
+        this.alternativeUnit = alternativeUnit;
     }
 }
