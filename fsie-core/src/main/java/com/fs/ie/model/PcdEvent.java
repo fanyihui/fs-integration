@@ -1,5 +1,6 @@
 package com.fs.ie.model;
 
+import com.fs.ie.model.device.MedicalDeviceSystem;
 import com.fs.ie.model.valueset.EventTypeEnum;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Date;
  */
 public class PcdEvent {
     private EventTypeEnum eventType;
+    private MedicalDeviceSystem medicalDeviceSystem;
     private Date eventDateTime;
     private Encounter encounter;
     private ArrayList<Observation> observations;
@@ -20,6 +22,14 @@ public class PcdEvent {
 
     public void setEventType(EventTypeEnum eventType) {
         this.eventType = eventType;
+    }
+
+    public MedicalDeviceSystem getMedicalDeviceSystem() {
+        return medicalDeviceSystem;
+    }
+
+    public void setMedicalDeviceSystem(MedicalDeviceSystem medicalDeviceSystem) {
+        this.medicalDeviceSystem = medicalDeviceSystem;
     }
 
     public Date getEventDateTime() {
