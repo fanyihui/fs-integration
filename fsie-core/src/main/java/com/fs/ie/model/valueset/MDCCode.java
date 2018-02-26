@@ -45,4 +45,6 @@ public class MDCCode {
     public static CodeDefinition MDC_ATTR_SYS_TYPE = new CodeDefinition("", mdcCodeSystem, "MDC_ATTR_SYS_TYPE");
     public static CodeDefinition MDC_ATTR_ID_MODEL = new CodeDefinition("",mdcCodeSystem, "MDC_ATTR_ID_MODEL ");
     public static CodeDefinition MDC_ATTR_SYS_ID = new CodeDefinition("", mdcCodeSystem, "MDC_ATTR_SYS_ID");
+
+    public static CodeDefinition MDC_DEV_PUMP_INFUS_MDS = new CodeDefinition("", mdcCodeSystem, "MDC_DEV_PUMP_INFUS_MDS");
 }
