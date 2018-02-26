@@ -1,5 +1,6 @@
 package com.fs.ie.components.medcaptain;
 
+import com.fs.ie.util.ByteUtil;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.CumulativeProtocolDecoder;

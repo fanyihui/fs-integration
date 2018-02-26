@@ -1,5 +1,6 @@
 package com.fs.ie.components.medcaptain;
 
+import com.fs.ie.util.ByteUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

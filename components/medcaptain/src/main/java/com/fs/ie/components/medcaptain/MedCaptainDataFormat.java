@@ -1,5 +1,6 @@
 package com.fs.ie.components.medcaptain;
 
+import com.fs.ie.util.ByteUtil;
 import org.apache.camel.Exchange;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataFormatName;

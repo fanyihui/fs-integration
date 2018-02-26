@@ -69,6 +69,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>fsie-core</Bundle-SymbolicName>
+                        <Exporty-Package>com.fs.ie.*</Exporty-Package>
                         <Private-Package>com.fs.ie.*</Private-Package>
                         <Import-Package>*,org.apache.camel.osgi</Import-Package>
                     </instructions>

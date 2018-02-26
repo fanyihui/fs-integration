@@ -1,5 +1,7 @@
 package com.fs.ie.components.medcaptain;
 
+import com.fs.ie.util.ByteUtil;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
