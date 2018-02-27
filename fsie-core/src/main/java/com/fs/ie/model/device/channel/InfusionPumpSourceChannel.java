@@ -8,7 +8,7 @@ public class InfusionPumpSourceChannel extends MedicalDeviceChannel {
     private float duration; //default unit MDC_DIM_MIN
     private float drugDoseRate; //unit MDC_DIM_MILLI_G_PER_HR 4:: (3378) / MDC_DIM_MILLI_G_PER_MIN (4::3346) / MDC_DIM_MICRO_G_PER_HR (4::3379) / MDC_DIM_MICRO_G_PER_MIN (4::3347) / MDC_DIM_X_INTL_UNIT_PER_HR (4::5696)
     private float volumeInfused; // unit MDC_DIM_MILLI_L
-    private String drugLable;
+    private String drugLabel;
 
     public float getSetFluidDeliveryRate() {
         return setFluidDeliveryRate;
@@ -50,11 +50,11 @@ public class InfusionPumpSourceChannel extends MedicalDeviceChannel {
         this.volumeInfused = volumeInfused;
     }
 
-    public String getDrugLable() {
-        return drugLable;
+    public String getDrugLabel() {
+        return drugLabel;
     }
 
-    public void setDrugLable(String drugLable) {
-        this.drugLable = drugLable;
+    public void setDrugLabel(String drugLabel) {
+        this.drugLabel = drugLabel;
     }
 }

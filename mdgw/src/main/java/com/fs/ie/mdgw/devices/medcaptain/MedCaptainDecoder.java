@@ -52,7 +52,7 @@ public class MedCaptainDecoder extends CumulativeProtocolDecoder {
                 infusionPumpDeliveryChannel.setOperationalStatus(""+ByteUtil.getInt(buf[106])); //TODO add code here to map the status to MDC code. Map to CWE value type
 
                 InfusionPumpSourceChannel infusionPumpSourceChannel = new InfusionPumpSourceChannel();
-                infusionPumpSourceChannel.setDrugLable(ByteUtil.getString(buf, 107, 25));
+                infusionPumpSourceChannel.setDrugLabel(ByteUtil.getString(buf, 107, 25));
 
                 break;
             default:
