@@ -49,10 +49,42 @@ public class MedCaptainDecoder extends CumulativeProtocolDecoder {
                 encounter.setBedNo(ByteUtil.getString(buf, 99, 7));
 
                 InfusionPumpDeliveryChannel infusionPumpDeliveryChannel = new InfusionPumpDeliveryChannel();
-                infusionPumpDeliveryChannel.setOperationalStatus(""+ByteUtil.getInt(buf[106])); //TODO add code here to map the status to MDC code. Map to CWE value type
+                int status = ByteUtil.getInt(buf[106]);
+                String infusingStatus = null;
+                switch(status){
+                    case 0: //空闲
+                        break;
+                    case 1: //准备
+                        break;
+                    case 2: //输注中
+                        break;
+                    case 3: //KVO
+                        break;
+                    case 4: //BOLUS
+                        break;
+                    case 5: //antiBOLUS
+                        break;
+                    case 6: //排气
+                        break;
+                    case 7: //报警状态
+                        break;
+                    case 8: //待机状态
+                        break;
+                        default:
+                            break;
+
+                }
+                infusionPumpDeliveryChannel.setInfusingStatus(infusingStatus); //TODO add code here to map the status to MDC code. Map to CWE value type
 
                 InfusionPumpSourceChannel infusionPumpSourceChannel = new InfusionPumpSourceChannel();
                 infusionPumpSourceChannel.setDrugLabel(ByteUtil.getString(buf, 107, 25));
+                infusionPumpSourceChannel.setProgramDeliveryMode(""+ByteUtil.getInt(buf[132]));
+                infusionPumpSourceChannel.setVolumeProgrammed(ByteUtil.getFloat(buf, 133, 4));
+                infusionPumpSourceChannel.setDrugDoseRate(ByteUtil.getFloat(buf, 137, 4));
+                infusionPumpSourceChannel.setPassingTime(ByteUtil.getInt(buf, 141, 4));
+                infusionPumpSourceChannel.setTimeRemaining(ByteUtil.getInt(buf, 145, 4));
+                infusionPumpSourceChannel.setVolumeInfused(ByteUtil.getFloat(buf, 149, 4));
+                infusionPumpSourceChannel.setVolumeRemaining(ByteUtil.getFloat(buf, 153, 4));
 
                 break;
             default:

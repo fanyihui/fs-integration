@@ -3,8 +3,10 @@ package com.fs.ie.model.device.channel;
 public class InfusionPumpDeliveryChannel {
     private float totalCurrentRate; // unit MDC_DIM_MILLI_L_PER_HR
     private float totalVolumeInfused; // unit MDC_DIM_MILLI_L
-    private String operationalStatus; //“pump-status-infusing” + “pump-status-kvo” + “pump-status-ready” +” pump-status-standby” + “pump-status-paused”
+    private String infusingStatus; //“pump-status-infusing” + “pump-status-kvo” + “pump-status-ready” +” pump-status-standby” + “pump-status-paused”
     private String operationalMode; //
+    private String currentPumpFluidFlow;
+    private String pumpActiveSources;
 
     public float getTotalCurrentRate() {
         return totalCurrentRate;
@@ -22,12 +24,12 @@ public class InfusionPumpDeliveryChannel {
         this.totalVolumeInfused = totalVolumeInfused;
     }
 
-    public String getOperationalStatus() {
-        return operationalStatus;
+    public String getInfusingStatus() {
+        return infusingStatus;
     }
 
-    public void setOperationalStatus(String operationalStatus) {
-        this.operationalStatus = operationalStatus;
+    public void setInfusingStatus(String infusingStatus) {
+        this.infusingStatus = infusingStatus;
     }
 
     public String getOperationalMode() {
