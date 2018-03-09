@@ -1,9 +1,11 @@
 package com.fs.ie.model.device.channel;
 
+import com.fs.ie.model.valueset.InfusingStatusValueCode;
+
 public class InfusionPumpDeliveryChannel {
     private float totalCurrentRate; // unit MDC_DIM_MILLI_L_PER_HR
     private float totalVolumeInfused; // unit MDC_DIM_MILLI_L
-    private String infusingStatus; //“pump-status-infusing” + “pump-status-kvo” + “pump-status-ready” +” pump-status-standby” + “pump-status-paused”
+    private InfusingStatusValueCode infusingStatus; //“pump-status-infusing” + “pump-status-kvo” + “pump-status-ready” +” pump-status-standby” + “pump-status-paused”
     private String operationalMode; //
     private String currentPumpFluidFlow;
     private String pumpActiveSources;
@@ -24,11 +26,11 @@ public class InfusionPumpDeliveryChannel {
         this.totalVolumeInfused = totalVolumeInfused;
     }
 
-    public String getInfusingStatus() {
+    public InfusingStatusValueCode getInfusingStatus() {
         return infusingStatus;
     }
 
-    public void setInfusingStatus(String infusingStatus) {
+    public void setInfusingStatus(InfusingStatusValueCode infusingStatus) {
         this.infusingStatus = infusingStatus;
     }
 
