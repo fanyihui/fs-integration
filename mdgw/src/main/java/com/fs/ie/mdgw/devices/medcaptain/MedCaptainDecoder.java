@@ -3,15 +3,18 @@ package com.fs.ie.mdgw.devices.medcaptain;
 import com.fs.ie.model.Encounter;
 import com.fs.ie.model.Patient;
 import com.fs.ie.model.PcdEvent;
+import com.fs.ie.model.device.MedicalDeviceChannel;
 import com.fs.ie.model.device.MedicalDeviceSystem;
 import com.fs.ie.model.device.VirtualMedicalDevice;
 import com.fs.ie.model.device.channel.InfusionPumpDeliveryChannel;
 import com.fs.ie.model.device.channel.InfusionPumpSourceChannel;
+import com.fs.ie.model.valueset.InfusingStatusValueCode;
 import com.fs.ie.util.ByteUtil;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +38,13 @@ public class MedCaptainDecoder extends CumulativeProtocolDecoder {
         Patient patient = new Patient();
         MedicalDeviceSystem mds = new MedicalDeviceSystem();
         ArrayList<VirtualMedicalDevice> vmds = new ArrayList<>();
+        mds.setVirtualMedicalDevices(vmds);
+
+        VirtualMedicalDevice virtualMedicalDevice = new VirtualMedicalDevice();
+        ArrayList<MedicalDeviceChannel> medicalDeviceChannels = new ArrayList<>();
+        virtualMedicalDevice.setMedicalDeviceChannels(medicalDeviceChannels);
+
+        vmds.add(virtualMedicalDevice);
 
         switch (code){
             case 0x0360:
@@ -49,10 +59,53 @@ public class MedCaptainDecoder extends CumulativeProtocolDecoder {
                 encounter.setBedNo(ByteUtil.getString(buf, 99, 7));
 
                 InfusionPumpDeliveryChannel infusionPumpDeliveryChannel = new InfusionPumpDeliveryChannel();
-                infusionPumpDeliveryChannel.setOperationalStatus(""+ByteUtil.getInt(buf[106])); //TODO add code here to map the status to MDC code. Map to CWE value type
+                int status = ByteUtil.getInt(buf[106]);
+                InfusingStatusValueCode infusingStatus = null;
+                switch(status){
+                    case 0: //空闲
+                        break;
+                    case 1: //准备
+                        infusingStatus = InfusingStatusValueCode.PUMP_STATUS_READY;
+                        break;
+                    case 2: //输注中
+                        infusingStatus = InfusingStatusValueCode.PUMP_STATUS_INFUSING;
+                        break;
+                    case 3: //KVO
+                        infusingStatus = InfusingStatusValueCode.PUMP_STATUS_KVO;
+                        break;
+                    case 4: //BOLUS
+                        infusingStatus = InfusingStatusValueCode.PUMP_STATUS_BOLUS;
+                        break;
+                    case 5: //antiBOLUS
+                        infusingStatus = InfusingStatusValueCode.PUMP_STATUS_ANTIBOLUS;
+                        break;
+                    case 6: //排气
+                        infusingStatus = InfusingStatusValueCode.PUMP_STATUS_EXPEL;
+                        break;
+                    case 7: //报警状态
+                        infusingStatus = InfusingStatusValueCode.PUMP_STATUS_ALARM;
+                        break;
+                    case 8: //待机状态
+                        infusingStatus = InfusingStatusValueCode.PUMP_STATUS_STANDBY;
+                        break;
+                    default:
+                        break;
+
+                }
+
+                infusionPumpDeliveryChannel.setInfusingStatus(infusingStatus);
 
                 InfusionPumpSourceChannel infusionPumpSourceChannel = new InfusionPumpSourceChannel();
                 infusionPumpSourceChannel.setDrugLabel(ByteUtil.getString(buf, 107, 25));
+                infusionPumpSourceChannel.setProgramDeliveryMode(""+ByteUtil.getInt(buf[132]));
+                infusionPumpSourceChannel.setVolumeProgrammed(ByteUtil.getFloat(buf, 133, 4));
+                infusionPumpSourceChannel.setDrugDoseRate(ByteUtil.getFloat(buf, 137, 4));
+                infusionPumpSourceChannel.setPassingTime(ByteUtil.getInt(buf, 141, 4));
+                infusionPumpSourceChannel.setTimeRemaining(ByteUtil.getInt(buf, 145, 4));
+                infusionPumpSourceChannel.setVolumeInfused(ByteUtil.getFloat(buf, 149, 4));
+                infusionPumpSourceChannel.setVolumeRemaining(ByteUtil.getFloat(buf, 153, 4));
+
+                //medicalDeviceChannels.add(infusionPumpDeliveryChannel);
 
                 break;
             default:
