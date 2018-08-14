@@ -19,7 +19,14 @@
         <property name="password" value="root" />
     </bean>
 
-    <camelContext xmlns="http://camel.apache.org/schema/spring">
+    <camelContext xmlns="http://camel.apache.org/schema/spring" id="application1">
+        <endpoint id="ADT1" uri="netty4:tcp://localhost:2100?sync=true&amp;encoder=#hl7encoder&amp;decoder=#hl7decoder"/>
+
+        <route>
+            <from ref="ADT1"/>
+            <log message=""/>
+        </route>
+
         <route>
             <from uri="netty4:tcp://localhost:2100?sync=true&amp;encoder=#hl7encoder&amp;decoder=#hl7decoder"/>
             <!--from uri="file:examples/data/out" /-->
@@ -45,4 +52,7 @@
         </route>
     </camelContext>
 
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+
+    </camelContext>
 </beans>

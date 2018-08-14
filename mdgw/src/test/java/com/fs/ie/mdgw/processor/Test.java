@@ -3,6 +3,7 @@ package com.fs.ie.mdgw.processor;
 import ca.uhn.hl7v2.model.GenericMessage;
 import com.fs.ie.model.*;
 import com.fs.ie.model.valueset.EventTypeEnum;
+import com.fs.ie.model.valueset.GenderCode;
 import com.fs.ie.model.valueset.MDCCode;
 import com.fs.ie.model.valueset.ObservationValueTypeCode;
 
@@ -17,7 +18,7 @@ public class Test {
         patient.setGivenName("Smith");
         patient.setSurnName("John");
         patient.setBirthdate("1980-02-03");
-        patient.setGender("F");
+        patient.setGender(GenderCode.F);
 
         Encounter encounter = new Encounter();
         encounter.setPatient(patient);

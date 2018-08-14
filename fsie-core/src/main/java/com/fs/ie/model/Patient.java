@@ -1,7 +1,6 @@
 package com.fs.ie.model;
 
 import com.fs.ie.model.valueset.GenderCode;
-import com.sun.tools.javah.Gen;
 
 /**
  * Created by faen on 2018/2/5.
