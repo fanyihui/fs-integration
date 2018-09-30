@@ -93,6 +93,12 @@
             <type>xml</type>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-core</artifactId>
+            <version>${cxf-version}</version>
+        </dependency>
     </dependencies>
 
     <build>

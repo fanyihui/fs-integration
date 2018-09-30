@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>medcaptain</module>
+        <module>chinese-hip-v1</module>
     </modules>
 
 
