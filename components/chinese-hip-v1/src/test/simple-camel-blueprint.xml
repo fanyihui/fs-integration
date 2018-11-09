@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:camel-cxf="http://camel.apache.org/schema/blueprint/cxf"
+    xmlns:soap="http://cxf.apache.org/blueprint/bindings/soap">
+    
+    <bean id="RequestHandler" class="com.fs.ie.components.chship.processors.RequestHandler"/>
+    
+    <camel-cxf:cxfEndpoint id="hipMessageServer"
+        address="http://localhost:9001/hipMessageServer"
+        serviceClass="com.fs.ie.components.chship.HL7MessageServerService">
+        <camel-cxf:binding>
+            <soap:soapBinding version="1.2"/>
+        </camel-cxf:binding>
+        <!--camel-cxf:properties>
+            <entry key="dataFormat" value="PAYLOAD"/>
+        </camel-cxf:properties-->
+    </camel-cxf:cxfEndpoint>
+    
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint" id="simple">
+        <route>
+            <from uri="hipMessageServer"/>
+            <log message="*********** After receving the inbound request ************"/>
+            <log message="action:${in.body[0]}"/>
+            <log message="message:${in.body[1]}"/>
+            <to uri="bean:RequestHandler"/>
+            <to uri="direct:schemaValidation"></to>
+            <log message="message:${in.body}"/>
+            
+            <onException>
+                <exception>java.lang.Exception</exception>
+                <log message="Exception occured ${exception.message}" />
+            </onException>
+        </route>
+        
+        <route id="schemaValidation">
+            <from uri="direct:schemaValidation"/>
+            <choice>
+                <when>
+                    <simple>${header.ACTION} == 'PatientRegistryAddRequest'</simple>
+                    <to uri="validator:schemas/multicacheschemas/PRPA_IN202311UV02.xsd"/>
+                </when>
+            </choice>
+            
+        </route>
+    </camelContext>
+
+</blueprint>
