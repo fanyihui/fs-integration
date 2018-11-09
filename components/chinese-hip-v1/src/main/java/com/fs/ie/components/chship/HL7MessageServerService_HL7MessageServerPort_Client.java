@@ -180,7 +180,7 @@ public final class HL7MessageServerService_HL7MessageServerPort_Client {
 
         {
         System.out.println("Invoking hipMessageServer...");
-        java.lang.String _hipMessageServer_action = "PatientRegistryReviseRequest";
+        java.lang.String _hipMessageServer_action = "PatientRegistryAddRequest";
         java.lang.String _hipMessageServer_message = MESSAGE;
         java.lang.String _hipMessageServer__return = port.hipMessageServer(_hipMessageServer_action, _hipMessageServer_message);
         System.out.println("hipMessageServer.result=" + _hipMessageServer__return);
