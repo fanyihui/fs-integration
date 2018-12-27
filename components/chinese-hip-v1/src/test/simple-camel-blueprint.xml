@@ -3,7 +3,8 @@
     xmlns:camel-cxf="http://camel.apache.org/schema/blueprint/cxf"
     xmlns:soap="http://cxf.apache.org/blueprint/bindings/soap">
     
-    <bean id="RequestHandler" class="com.fs.ie.components.chship.processors.RequestHandler"/>
+    <!--bean id="RequestHandler" class="com.fs.ie.components.chship.processors.RequestHandler"/>
+    <bean id="ContentValidation" class="com.fs.ie.components.chship.processors.ContentValidation"/-->
     
     <camel-cxf:cxfEndpoint id="hipMessageServer"
         address="http://localhost:9001/hipMessageServer"
@@ -22,9 +23,9 @@
             <log message="*********** After receving the inbound request ************"/>
             <log message="action:${in.body[0]}"/>
             <log message="message:${in.body[1]}"/>
-            <to uri="bean:RequestHandler"/>
-            <to uri="direct:schemaValidation"></to>
-            <log message="message:${in.body}"/>
+            <!--to uri="bean:RequestHandler"/-->
+            <log message="*********** After transfer:${in.body} ****************"/>
+            <!--to uri="direct:validation"/-->
             
             <onException>
                 <exception>java.lang.Exception</exception>
@@ -32,16 +33,25 @@
             </onException>
         </route>
         
-        <route id="schemaValidation">
-            <from uri="direct:schemaValidation"/>
+        <!--route id="validation">
+            <from uri="direct:validation"/>
             <choice>
                 <when>
                     <simple>${header.ACTION} == 'PatientRegistryAddRequest'</simple>
-                    <to uri="validator:schemas/multicacheschemas/PRPA_IN202311UV02.xsd"/>
+                    <to uri="validator:schemas/multicacheschemas/PRPA_IN201311UV02.xsd"/>
+                    <to uri="bean:ContentValidation?method=validatePatientRegistryAddRequest"/>
                 </when>
             </choice>
-            
-        </route>
+        </route-->
+        
+        <!--route id="patientRegistryAddRequestValidation">
+            <from uri="direct:patRegAddReqValidation"/>
+            <choice>
+                <when>
+                    <xpath>/PRPA_IN201311UV02/controlActProcess/subject/registrationRequest/subject1/patient/statusCode != 'active'</xpath>
+                </when>
+            </choice>
+        </route-->
     </camelContext>
 
 </blueprint>
