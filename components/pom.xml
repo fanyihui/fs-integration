@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>components</artifactId>
+    <groupId>com.fs.ie.components</groupId>
     <packaging>pom</packaging>
     <modules>
         <module>medcaptain</module>

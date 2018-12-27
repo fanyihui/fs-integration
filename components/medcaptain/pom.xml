@@ -4,40 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>components</artifactId>
-        <groupId>com.fs.ie</groupId>
+        <groupId>com.fs.ie.components</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>medcaptain</artifactId>
-    <packaging>bundle</packaging>
+    <name>FSIE :: Components :: MedCaptain</name>
     <version>1.0-SNAPSHOT</version>
-    <name>fsie :: MedCaptain</name>
-    <description>FSIE MedCaptain Component</description>
 
-
-    <!--properties>
-        <camel.osgi.export.pkg>com.fs.ie.components.medcaptain.*</camel.osgi.export.pkg>
-        <camel.osgi.import.before.defaults>
-            org.apache.mina.*;version="[2,3)"
-        </camel.osgi.import.before.defaults>
-        <!-camel.osgi.export.service>
-          org.apache.camel.spi.DataFormatResolver;dataformat=medcaptain
-        </camel.osgi.export.service-->
-    <!--/properties-->
-
-    <!--dependencyManagement>
-        <dependencies>
-            <!- Camel BOM -->
-            <!--dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-parent</artifactId>
-                <version>${camel-version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement-->
+    <packaging>bundle</packaging>
 
     <dependencies>
         <dependency>

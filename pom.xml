@@ -10,11 +10,12 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <camel-version>2.22.0</camel-version>
+        <camel-version>2.23.0</camel-version>
         <cxf-version>3.2.6</cxf-version>
-        <hawtio-version>2.0.3</hawtio-version>
-        <karaf-version>4.2.0</karaf-version>
+        <hawtio-version>2.4.0</hawtio-version>
+        <karaf-version>4.2.2</karaf-version>
         <hapi-version>2.3</hapi-version>
+        <jolokia-version>1.6.0</jolokia-version>
     </properties>
 
     <modules>

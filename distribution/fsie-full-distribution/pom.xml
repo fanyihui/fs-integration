@@ -99,6 +99,12 @@
             <artifactId>cxf-core</artifactId>
             <version>${cxf-version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-osgi</artifactId>
+            <version>${jolokia-version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -167,7 +173,7 @@
                 </executions-->
                 <configuration>
                     <installedFeatures>
-                        <!--将所有需要用到的Camcel组件或者自己开发的feature放到installedFeatures中，保证这些组件都拷贝到系统的system目录中，该目录是离线的repository-->
+                        <!--将所有需要用到的Camel组件或者自己开发的feature放到installedFeatures中，保证这些组件都拷贝到系统的system目录中，该目录是离线的repository-->
                         <feature>camel</feature>
                         <feature>camel-hl7</feature>
                         <feature>camel-cxf</feature>
@@ -180,6 +186,7 @@
                         <feature>camel-mail</feature>
                         <feature>camel-sql</feature>
                         <feature>hawtio</feature>
+                        <feature>jolokia</feature>
                     </installedFeatures>
                     <!--startupFeatures>
                         <feature>standard</feature>
@@ -195,6 +202,7 @@
                         <feature>camel-sql/${camel-version}</feature>
                         <feature>camel-cxf/${camel-version}</feature>
                         <feature>hawtio/${hawtio-version}</feature>
+                        <feature>jolokia/${jolokia-version}</feature>
                     </bootFeatures>
                     <javase>1.8</javase>
                     <libraries>
